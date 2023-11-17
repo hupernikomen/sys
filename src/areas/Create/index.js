@@ -1,40 +1,36 @@
-import { useEffect, useState } from "react"
+import { useState, useContext } from 'react';
+import { AppContext } from '../../contexts';
 
-export default function Create({
-   getApi, // Metodo de troca de heroku / local
-   setSearchApi,
-   statusConnection,
-   searchApi,
-   setRegion,
-   region,
-   setUser,
-   user,
-   setTypeAccount,
-   typeAccount,
-   setRegionSelected,
-   regionSelected,
-   setCategoryName,
-   categoryName,
-   categorySelected,
-   setSubcategoryName,
-   subcategoryName,
-   setCategorySelected,
-   HandleRegions,
-   HandleStores,
-   HandlePersons
-
-}) {
-
-   useEffect(() => {
-
-   }, [])
+export default function Create() {
+   
+   const {
+      setUser,
+      user,
+      getApi,
+      setCategoryName,
+      setSubcategoryName,
+      subcategoryName,
+      setCategorySelected,
+      categorySelected,
+      categoryName,
+      setSearchApi,
+      searchApi,
+      HandleStores,
+      HandlePersons,
+      statusConnection,
+      HandleRegions,
+      setRegionSelected,
+      regionSelected,
+      typeAccount,
+      setTypeAccount
+   } = useContext(AppContext)
 
    const [userAdmin, setUserAdmin] = useState(null)
    const [passwordAdmin, setPasswordAdmin] = useState(null)
+   const [region, setRegion] = useState('')
 
    const response = localStorage.getItem('@authGuia')
    const credentials = JSON.parse(response)
-
 
    const passwordDefault = "123"
 
@@ -79,8 +75,8 @@ export default function Create({
          setUser('')
          setRegionSelected('')
          setTypeAccount('')
-         HandlePersons()
          HandleStores()
+         HandlePersons()
       }
    }
 
@@ -103,8 +99,8 @@ export default function Create({
    async function CreateRegion() {
       try {
          await getApi(searchApi).post('region', { name: region }, { headers })
-         setRegion("")
          HandleRegions()
+         setRegion("")
       } catch (err) {
          console.log(err)
       }
@@ -130,9 +126,7 @@ export default function Create({
          backgroundColor: '#282c34',
          padding: 6
       }}>
-         <div style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', height: 40, marginBottom: 6 }}>
-
-
+         <div style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', height: 40, marginBottom: 2 }}>
             <div style={{ display: 'flex', alignItems: 'center', border: '1px solid #777', padding: 6, borderRadius: 6 }}>
                <div style={{ width: 12, height: 12, marginRight: 6, borderRadius: 10, backgroundColor: statusConnection ? "green" : "red" }} />
                <label style={{ color: '#aaa', fontSize: 12 }}>{statusConnection ? "Online" : "Offline"}</label>
@@ -150,53 +144,53 @@ export default function Create({
          </div>
 
 
-         {!credentials?.token ? <div style={{padding:'6px 0px'}}>
+         {!credentials?.token ? <div style={{ padding: '6px 0px' }}>
             <input placeholder="email" style={{ border: 'none', padding: '0px 12px', width: '100%', height: 35, backgroundColor: '#21252b', color: '#aaa' }} onChange={(e) => setUserAdmin(e.target.value)} />
-            <div style={{display:'flex'}}>
+            <div style={{ display: 'flex' }}>
                <input placeholder="senha" style={{ border: 'none', padding: '0px 12px', width: '100%', height: 35, backgroundColor: '#21252b', color: '#aaa' }} onChange={(e) => setPasswordAdmin(e.target.value)} />
-               <button style={{backgroundColor: '#282c34', color:'#aaa', border:'none'}} onClick={() => SignIn()}>Login</button>
+               <button style={{ backgroundColor: '#282c34', color: '#aaa', border: 'none' }} onClick={() => SignIn()}>Login</button>
             </div>
          </div> : null}
 
 
-         <div style={{ display: 'flex', alignItems: 'center', marginBottom: 6, }}>
+         <div style={{ display: 'flex', alignItems: 'center', marginBottom: 2, }}>
             <input
                value={region}
                onChange={(e) => setRegion(e.target.value)}
                placeholder='Região'
-               style={{ border: 'none', padding: 12, width: '100%', backgroundColor: '#21252b', color: '#aaa' }}
+               style={{ border: 'none', padding: '0px 12px', height: 35, width: '100%', backgroundColor: '#21252b', color: '#aaa' }}
             />
 
             <button
                onClick={() => CreateRegion()}
-               disabled={!region} style={{ height: 30, width: 40, fontSize: 22, border: 'none', backgroundColor: '#2E7D32', color: '#aaa', opacity: !region ? '.3' : '1' }}>
+               disabled={!region} style={{ height: 35, width: 40, fontSize: 22, border: 'none', backgroundColor: '#2E7D32', color: '#aaa', opacity: !region ? '.3' : '1' }}>
                +
             </button>
          </div>
 
-         <div style={{ display: 'flex', alignItems: 'center', marginBottom: 6 }}>
+         <div style={{ display: 'flex', alignItems: 'center', marginBottom: 2 }}>
             <input
                value={user}
                onChange={(e) => setUser(e.target.value)}
                placeholder='Usuario'
-               style={{ border: 'none', padding: 12, width: '100%', backgroundColor: '#21252b', color: '#aaa' }}
+               style={{ border: 'none', padding: '0px 12px', height: 35, width: '100%', backgroundColor: '#21252b', color: '#aaa' }}
             />
 
             <button
                onClick={() => RegisterUser()}
-               disabled={!user || !regionSelected || !typeAccount} style={{ height: 30, width: 40, fontSize: 22, border: 'none', backgroundColor: '#2E7D32', color: '#aaa', opacity: !user || !regionSelected || !typeAccount ? '.3' : '1' }}>
+               disabled={!user || !regionSelected || !typeAccount} style={{ height: 35, width: 40, fontSize: 22, border: 'none', backgroundColor: '#2E7D32', color: '#aaa', opacity: !user || !regionSelected || !typeAccount ? '.3' : '1' }}>
                +
             </button>
          </div>
 
-         <div style={{ display: 'flex', alignItems: 'center', marginBottom: 6 }}>
-            <input value={categoryName} onChange={(e) => setCategoryName(e.target.value)} placeholder='Categoria' style={{ border: 'none', padding: 12, width: '100%', backgroundColor: '#21252b', color: '#aaa' }} />
-            <button onClick={() => CriaCategoria()} disabled={!categoryName} style={{ height: 30, width: 40, fontSize: 22, border: 'none', backgroundColor: '#2E7D32', color: '#aaa', opacity: !categoryName ? '.3' : '1' }}>+</button>
+         <div style={{ display: 'flex', alignItems: 'center', marginBottom: 2 }}>
+            <input value={categoryName} onChange={(e) => setCategoryName(e.target.value)} placeholder='Categoria' style={{ border: 'none', height: 35, padding: '0px 12px', width: '100%', backgroundColor: '#21252b', color: '#aaa' }} />
+            <button onClick={() => CriaCategoria()} disabled={!categoryName} style={{ height: 35, width: 40, fontSize: 22, border: 'none', backgroundColor: '#2E7D32', color: '#aaa', opacity: !categoryName ? '.3' : '1' }}>+</button>
          </div>
 
-         <div style={{ display: 'flex', alignItems: 'center', marginBottom: 6 }}>
-            <input value={subcategoryName} onChange={(e) => setSubcategoryName(e.target.value)} placeholder='Subategoria' style={{ border: 'none', padding: 12, width: '100%', backgroundColor: '#21252b', color: '#aaa' }} />
-            <button onClick={() => CriarSubcategoria()} disabled={!categorySelected || !subcategoryName} style={{ height: 30, width: 40, fontSize: 22, border: 'none', backgroundColor: '#2E7D32', color: '#aaa', opacity: !categorySelected || !subcategoryName ? '.3' : '1' }}>+</button>
+         <div style={{ display: 'flex', alignItems: 'center', marginBottom: 2 }}>
+            <input value={subcategoryName} onChange={(e) => setSubcategoryName(e.target.value)} placeholder='Subategoria' style={{ border: 'none', height: 35, padding: '0px 12px', width: '100%', backgroundColor: '#21252b', color: '#aaa' }} />
+            <button onClick={() => CriarSubcategoria()} disabled={!categorySelected || !subcategoryName} style={{ height: 35, width: 40, fontSize: 22, border: 'none', backgroundColor: '#2E7D32', color: '#aaa', opacity: !categorySelected || !subcategoryName ? '.3' : '1' }}>+</button>
          </div>
 
       </div>
