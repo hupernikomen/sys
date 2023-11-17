@@ -121,8 +121,7 @@ export default function Create() {
 
    return (
       <div style={{
-         gridRow: '1 / span 2',
-         gridColumn: '1 / span 1',
+         marginBottom:2,
          backgroundColor: '#282c34',
          padding: 6
       }}>

@@ -24,8 +24,7 @@ export default function ListRegions({ indice }) {
 
   return (
     <div style={{
-      gridRow: '1 / span 2',
-      gridColumn: `${indice} / span 1`,
+      marginBottom:2,
       backgroundColor: '#282c34',
       padding: 6,
     }}>

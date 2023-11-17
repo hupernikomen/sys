@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react"
-import { AppContext } from "../contexts"
+import { AppContext } from "../../contexts"
 
 export default function ListCategories({ indice }) {
 
@@ -23,8 +23,7 @@ export default function ListCategories({ indice }) {
 
    return (
       <div style={{
-         gridRow: '1 / span 2',
-         gridColumn: `${indice} / span 1`,
+         marginBottom:2,
          backgroundColor: '#282c34',
          padding: 6,
          overflow: 'auto',
