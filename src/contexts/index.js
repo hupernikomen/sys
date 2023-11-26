@@ -13,6 +13,7 @@ export default function AppProvider ({children}) {
 
   const [stores, setStores] = useState([])
 	const [persons, setPersons] = useState([])
+  const [professions, setProfessions] = useState([])
 
   const [categorySelected, setCategorySelected] = useState('')
   const [categoryName, setCategoryName] = useState('')
@@ -26,6 +27,7 @@ export default function AppProvider ({children}) {
     HandleStores()
     HandlePersons()
     HandleRegions()
+    HandleProfessions()
   },[searchApi])
 
 
@@ -44,6 +46,18 @@ export default function AppProvider ({children}) {
     try {
       const response = await getApi(searchApi).get('personsAdmin')
       setPersons(response.data)
+
+    } catch (error) {
+      if (error.message === 'Network Error') {
+        setStatusConnection(false)
+      }
+    }
+  }
+
+	async function HandleProfessions() {
+    try {
+      const response = await getApi(searchApi).get('professions')
+      setProfessions(response.data)
 
     } catch (error) {
       if (error.message === 'Network Error') {
@@ -71,7 +85,8 @@ export default function AppProvider ({children}) {
       categorySelected, setCategorySelected,categoryName, setCategoryName,subcategoryName, setSubcategoryName,
       HandleStores, stores, HandlePersons, persons,
       HandleRegions,regions, setRegions, setRegionSelected, regionSelected,
-      typeAccount, setTypeAccount
+      typeAccount, setTypeAccount,
+      HandleProfessions, professions
     }}>
       {children}
     </AppContext.Provider>

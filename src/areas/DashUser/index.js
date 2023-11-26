@@ -126,46 +126,43 @@ export default function DashUser({ indice, Payment }) {
     };
 
 
-    if (!!client?.name) {
-
-        return (
-            <div style={{
-                marginBottom:2,
-                backgroundColor: '#21252b',
-                padding: 6,
-                display: 'flex',
-                flexDirection: 'column'
-            }}>
+    return (
+        <div style={{
+            marginBottom: 2,
+            backgroundColor: '#21252b',
+            padding: 6,
+            display: 'flex',
+            flexDirection: 'column'
+        }}>
 
 
-                <div style={{ height: 40, marginBottom: 2, alignItems: 'center', justifyContent: 'center', display: 'flex', gap: 12 }}>
-                    <div style={{ color: '#aaa', fontSize: 14 }}>{client?.name}</div>
-                    <div style={{ width: 6, height: 6, borderRadius: 10, backgroundColor: isOnline ? '#76FF03' : "#777" }} />
-                </div>
-
-                <div style={{ border: '1px solid #aaa' }}>
-
-                    <input style={{ border: 'none', padding: '0px 12px', height: 35, width: '100%', backgroundColor: '#282c34', color: '#aaa' }} type='date' onChange={(e) => setDatePayment(moment(e.target.value).format("DD/MM/YYYY"))} />
-                    <input placeholder='R$ 0,00' style={{ border: 'none', padding: '0px 12px', height: 35, width: '100%', backgroundColor: '#282c34', color: '#aaa' }} onChange={(e) => setValuePayment(e.target.value)} />
-                    <button disabled={!client || !datePayment || datePayment === 'Invalid date' || !valuePayment} onClick={() => Payment()} style={{ height: 35, border: 'none', backgroundColor: '#2E7D32', color: '#aaa', width: '100%' }}>Pagar</button>
-                </div>
-
-                <div style={{ border: '.5px solid #aaa', marginTop: 6 }}>
-                    
-                    <label style={{ height: 35, border: 'none', color: '#aaa', width: '100%', fontSize: 14, display: "flex", alignItems: 'center', justifyContent: 'center' }} for="arquivo">{!!file ? "Banner Capturado" : "Selecionar Banner"}</label>
-                    
-                    <input style={{ width: '100%', display: 'none' }} type="file" id="arquivo" onChange={(e) => HandleFile(e)} />
-                    {!!file ? <label onClick={() => SendBanner()} style={{ height: 35, border: 'none', backgroundColor: '#2E7D32', fontSize: 14, color: '#aaa', width: '100%', display: "flex", alignItems: 'center', justifyContent: 'center' }} for="arquivo">Enviar Banner</label> : null}
-                </div>
-
-                <span style={{ padding: '0px 12px', height: 35, width: '100%', backgroundColor: '#282c34', fontSize: 14, color: '#aaa', display: "flex", alignItems: 'center' }}>Profissão: {client?.profession?.name}</span>
-
-                <span onClick={() => registerPayment?.createdAt && alert("Ultimo registro de pagamento: " + moment(registerPayment?.createdAt).format('DD/MM/YYYY'))} style={{ display: 'flex', alignItems: 'center', padding: '0px 12px', height: 35, width: '100%', backgroundColor: '#282c34', color: '#aaa', fontSize: 14 }}>Venc.: {registerPayment?.datePayment} - {diffDias >= 0 ? diffDias + " dias" : "0"} </span>
-
-
-
+            <div style={{ height: 40, marginBottom: 2, alignItems: 'center', justifyContent: 'center', display: 'flex', gap: 12 }}>
+                <div style={{ color: '#aaa', fontSize: 14 }}>{client?.name}</div>
+                <div style={{ width: 6, height: 6, borderRadius: 10, backgroundColor: isOnline ? '#76FF03' : "#777" }} />
             </div>
 
-        )
-    }
+            <div style={{ border: '1px solid #aaa' }}>
+
+                <input style={{ border: 'none', padding: '0px 12px', height: 35, width: '100%', backgroundColor: '#282c34', color: '#aaa' }} type='date' onChange={(e) => setDatePayment(moment(e.target.value).format("DD/MM/YYYY"))} />
+                <input placeholder='R$ 0,00' style={{ border: 'none', padding: '0px 12px', height: 35, width: '100%', backgroundColor: '#282c34', color: '#aaa' }} onChange={(e) => setValuePayment(e.target.value)} />
+                <button disabled={!client || !datePayment || datePayment === 'Invalid date' || !valuePayment} onClick={() => Payment()} style={{ height: 35, border: 'none', backgroundColor: '#2E7D32', color: '#aaa', width: '100%' }}>Pagar</button>
+            </div>
+
+            <div style={{ border: '.5px solid #aaa', marginTop: 6 }}>
+
+                <label style={{ height: 35, border: 'none', color: '#aaa', width: '100%', fontSize: 14, display: "flex", alignItems: 'center', justifyContent: 'center' }} for="arquivo">{!!file ? "Banner Capturado" : "Selecionar Banner"}</label>
+
+                <input style={{ width: '100%', display: 'none' }} type="file" id="arquivo" onChange={(e) => HandleFile(e)} />
+                {!!file ? <label onClick={() => SendBanner()} style={{ height: 35, border: 'none', backgroundColor: '#2E7D32', fontSize: 14, color: '#aaa', width: '100%', display: "flex", alignItems: 'center', justifyContent: 'center' }} for="arquivo">Enviar Banner</label> : null}
+            </div>
+
+            <span style={{ padding: '0px 12px', height: 35, width: '100%', backgroundColor: '#282c34', fontSize: 14, color: '#aaa', display: "flex", alignItems: 'center' }}>Profissão: {client?.profession?.name}</span>
+
+            <span onClick={() => registerPayment?.createdAt && alert("Ultimo registro de pagamento: " + moment(registerPayment?.createdAt).format('DD/MM/YYYY'))} style={{ display: 'flex', alignItems: 'center', padding: '0px 12px', height: 35, width: '100%', backgroundColor: '#282c34', color: '#aaa', fontSize: 14 }}>Venc.: {registerPayment?.datePayment} - {diffDias >= 0 ? diffDias + " dias" : "0"} </span>
+
+
+
+        </div>
+
+    )
 }

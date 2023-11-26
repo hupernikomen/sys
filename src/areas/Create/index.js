@@ -2,11 +2,12 @@ import { useState, useContext } from 'react';
 import { AppContext } from '../../contexts';
 
 export default function Create() {
-   
+
    const {
       setUser,
       user,
       getApi,
+      HandleProfessions,
       setCategoryName,
       setSubcategoryName,
       subcategoryName,
@@ -28,6 +29,7 @@ export default function Create() {
    const [userAdmin, setUserAdmin] = useState(null)
    const [passwordAdmin, setPasswordAdmin] = useState(null)
    const [region, setRegion] = useState('')
+   const [professionName, setProfessionName] = useState('')
 
    const response = localStorage.getItem('@authGuia')
    const credentials = JSON.parse(response)
@@ -119,9 +121,21 @@ export default function Create() {
    }
 
 
+   async function CriarProfissao() {
+      if (professionName === '') return
+      try {
+         await getApi(searchApi).post(`profession`, { name: professionName }, { headers })
+         setProfessionName('')
+         HandleProfessions()
+      } catch (error) {
+         console.log(error.response)
+      }
+   }
+
+
    return (
       <div style={{
-         marginBottom:2,
+         marginBottom: 2,
          backgroundColor: '#282c34',
          padding: 6
       }}>
@@ -190,6 +204,11 @@ export default function Create() {
          <div style={{ display: 'flex', alignItems: 'center', marginBottom: 2 }}>
             <input value={subcategoryName} onChange={(e) => setSubcategoryName(e.target.value)} placeholder='Subategoria' style={{ border: 'none', height: 35, padding: '0px 12px', width: '100%', backgroundColor: '#21252b', color: '#aaa' }} />
             <button onClick={() => CriarSubcategoria()} disabled={!categorySelected || !subcategoryName} style={{ height: 35, width: 40, fontSize: 22, border: 'none', backgroundColor: '#2E7D32', color: '#aaa', opacity: !categorySelected || !subcategoryName ? '.3' : '1' }}>+</button>
+         </div>
+
+         <div style={{ display: 'flex', alignItems: 'center', marginBottom: 2 }}>
+            <input value={professionName} onChange={(e) => setProfessionName(e.target.value)} placeholder='Profissão' style={{ border: 'none', height: 35, padding: '0px 12px', width: '100%', backgroundColor: '#21252b', color: '#aaa' }} />
+            <button onClick={() => CriarProfissao()} disabled={!professionName} style={{ height: 35, width: 40, fontSize: 22, border: 'none', backgroundColor: '#2E7D32', color: '#aaa', opacity: !professionName ? '.3' : '1' }}>+</button>
          </div>
 
       </div>

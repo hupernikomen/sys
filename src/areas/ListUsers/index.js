@@ -13,7 +13,7 @@ export default function ListUsers({ indice }) {
 
 	return (
 		<div style={{
-      marginBottom:2,
+			marginBottom: 2,
 			backgroundColor: '#282c34',
 			padding: 6,
 		}}>
@@ -29,7 +29,11 @@ export default function ListUsers({ indice }) {
 				return (
 					<div key={i} onClick={() => handleItemClick(item)} style={{ flexDirection: 'row', marginBottom: 2, backgroundColor: client?.id === item.id ? '#2E7D32' : '#21252b', height: 35, display: 'flex', alignItems: 'center', justifyContent: "space-between", padding: '0px 12px' }}>
 						<div style={{ color: '#aaa', fontSize: 13, }}>{item.name}</div>
-						<div style={{ color: '#aaa', fontSize: 12 }}>{item.type}</div>
+
+						<div style={{ display: 'flex', alignItems: 'center' }}>
+							{item?.profession ? <div style={{ color: '#aaa', fontSize: 12 }}>{item?.profession?.name} / </div> : null}
+							<div style={{ color: '#aaa', fontSize: 12, marginLeft:4 }}>{item.type}</div>
+						</div>
 					</div>
 				)
 			})}
