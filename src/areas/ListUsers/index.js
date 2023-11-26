@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { AppContext } from '../../contexts';
 
-export default function ListUsers({ indice }) {
+export default function ListUsers({ setDash, dash }) {
 
 	const { stores, persons, setClient, client, typeAccount, setTypeAccount } = useContext(AppContext)
 
@@ -9,6 +9,7 @@ export default function ListUsers({ indice }) {
 
 	const handleItemClick = (item) => {
 		setClient(!client ? item : null);
+		setDash(!dash)
 	};
 
 	return (

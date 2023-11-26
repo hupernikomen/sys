@@ -12,6 +12,7 @@ export default function App() {
 
   const [create, setCreate] = useState(false)
   const [regions, setRegions] = useState(false)
+  const [dash, setDash] = useState(false)
 
   useEffect(() => {
     const updateMedia = () => {
@@ -33,6 +34,7 @@ export default function App() {
 
           <div style={{background: create ? '#2E7D32':'#282c34', padding: 8, fontSize:12, color: '#fff'}} onClick={() => setCreate(!create)}>Create</div>
           <div style={{background: regions ? '#2E7D32':'#282c34', padding: 8, fontSize:12, color: '#fff'}} onClick={() => setRegions(!regions)}>Regiões</div>
+          <div style={{background: dash ? '#2E7D32':'#282c34', padding: 8, fontSize:12, color: '#fff'}} onClick={() => setDash(!dash)}>Dash</div>
 
         </div>
         <div style={{
@@ -42,10 +44,10 @@ export default function App() {
         }}>
           {create && <Create />}
           {regions && <ListRegions />}
-          <ListUsers />
+          <ListUsers setDash={setDash} dash={dash} />
           <ListCategories />
           <ListProfessions />
-          <DashUser />
+          {dash && <DashUser />}
 
         </div>
       </div>
