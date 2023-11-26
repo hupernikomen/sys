@@ -34,24 +34,26 @@ export default function DashUser({ indice, Payment }) {
             'Authorization': `Bearer ${credentials.token}`
         }
 
-        // const registerPayment = await getApi(searchApi).get(`payment?userID=${client?.userID}`)
-        if (!!registerPayment) {
-            await getApi(searchApi).put(`payment?paymentID=${registerPayment?.id}`, {
-                value: valuePayment,
-                datePayment
-            }, { headers })
-                .then(() => console.log("atualizado"))
-                .finally(() => setClient(client))
+        var today = moment();
+        var futureDate = today.add(4, 'months');
 
-        } else {
+        // if (!!registerPayment) {
+        //     await getApi(searchApi).put(`payment?paymentID=${registerPayment?.id}`, {
+        //         value: valuePayment,
+        //         expiration: futureDate.format('DD/MM/YYYY')
+        //     }, { headers })
+        //         .then(() => console.log("atualizado"))
+        //         .finally(() => setClient(client))
+
+        // } else {
 
             await getApi(searchApi).post(`payment?userID=${client?.userID}`, {
                 value: valuePayment,
-                datePayment
+                expiration: futureDate.format('DD/MM/YYYY')
             }, { headers })
                 .then((response) => console.log(response))
                 .catch((error) => console.log(error))
-        }
+        // }
     }
 
     async function HandlePayment() {
@@ -145,7 +147,7 @@ export default function DashUser({ indice, Payment }) {
 
                 <input style={{ border: 'none', padding: '0px 12px', height: 35, width: '100%', backgroundColor: '#282c34', color: '#aaa' }} type='date' onChange={(e) => setDatePayment(moment(e.target.value).format("DD/MM/YYYY"))} />
                 <input placeholder='R$ 0,00' style={{ border: 'none', padding: '0px 12px', height: 35, width: '100%', backgroundColor: '#282c34', color: '#aaa' }} onChange={(e) => setValuePayment(e.target.value)} />
-                <button disabled={!client || !datePayment || datePayment === 'Invalid date' || !valuePayment} onClick={() => Payment()} style={{ height: 35, border: 'none', backgroundColor: '#2E7D32', color: '#aaa', width: '100%' }}>Pagar</button>
+                <button disabled={!client || !valuePayment} onClick={() => Payment()} style={{ height: 35, border: 'none', backgroundColor: '#2E7D32', color: '#aaa', width: '100%' }}>Pagar</button>
             </div>
 
             <div style={{ border: '.5px solid #aaa', marginTop: 6 }}>

@@ -40,6 +40,7 @@ export default function App() {
         <div style={{
           display: 'grid',
           gridTemplateColumns: isDesktop ? 'repeat(auto-fit, minmax(300px, 1fr))' : '1fr',
+          height:'90vh',
           gap: 10
         }}>
           {create && <Create />}
