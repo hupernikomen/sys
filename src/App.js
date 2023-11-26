@@ -10,6 +10,9 @@ import { useState, useEffect } from 'react';
 export default function App() {
   const [isDesktop, setIsDesktop] = useState(false);
 
+  const [create, setCreate] = useState(false)
+  const [regions, setRegions] = useState(false)
+
   useEffect(() => {
     const updateMedia = () => {
       setIsDesktop(window.innerWidth >= 768);
@@ -26,13 +29,19 @@ export default function App() {
       <div style={{
         display: 'block',
       }}>
+        <div style={{height:40, background:'#282c34', marginBottom:10, display:'flex', alignItems:'center',gap:6, paddingLeft:12, paddingRight:12}}>
+
+          <div style={{background: create ? '#2E7D32':'#282c34', padding: 8, fontSize:12, color: '#fff'}} onClick={() => setCreate(!create)}>Create</div>
+          <div style={{background: regions ? '#2E7D32':'#282c34', padding: 8, fontSize:12, color: '#fff'}} onClick={() => setRegions(!regions)}>Regiões</div>
+
+        </div>
         <div style={{
           display: 'grid',
           gridTemplateColumns: isDesktop ? 'repeat(auto-fit, minmax(300px, 1fr))' : '1fr',
           gap: 10
         }}>
-          <Create />
-          <ListRegions />
+          {create && <Create />}
+          {regions && <ListRegions />}
           <ListUsers />
           <ListCategories />
           <ListProfessions />
