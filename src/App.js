@@ -48,7 +48,7 @@ export default function App() {
           <ListUsers setDash={setDash} dash={dash} />
           <ListCategories />
           <ListProfessions />
-          {dash && <DashUser />}
+          <DashUser />
 
         </div>
       </div>
