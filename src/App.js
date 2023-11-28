@@ -46,9 +46,9 @@ export default function App() {
           {create && <Create />}
           {regions && <ListRegions />}
           <ListUsers setDash={setDash} dash={dash} />
+          <DashUser />
           <ListCategories />
           <ListProfessions />
-          <DashUser />
 
         </div>
       </div>
